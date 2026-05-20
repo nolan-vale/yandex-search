@@ -15,7 +15,22 @@ authors = [
 maintainers = [
     { name = "Nolan Vale Tools" },
 ]
-keywords = ["yandex", "yandex-search", "search", "search-automation", "cli", "ai-agents", "llm-tools", "developer-tools", "russian-search", "yandex-cloud", "automation"]
+keywords = [
+  "yandex",
+  "yandex-search",
+  "yandex-cloud",
+  "yandexgpt",
+  "search-api",
+  "web-search",
+  "russian-search",
+  "cli",
+  "python-cli",
+  "ai-agents",
+  "llm-tools",
+  "json-output",
+  "terminal-tools",
+  "automation",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
@@ -35,7 +50,9 @@ dev = ["ruff>=0.4"]
 [project.urls]
 Homepage = "https://github.com/nolan-vale/yandex-search-cli"
 Repository = "https://github.com/nolan-vale/yandex-search-cli"
+Documentation = "https://github.com/nolan-vale/yandex-search-cli/blob/main/docs/USAGE.md"
 Issues = "https://github.com/nolan-vale/yandex-search-cli/issues"
+Changelog = "https://github.com/nolan-vale/yandex-search-cli/releases"
 
 [project.scripts]
 yandex-search = "yandex_cli.main:search"
