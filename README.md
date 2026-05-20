@@ -1,132 +1,83 @@
+<div align="center">
+
+[English](docs/README.en.md)
+
+<!--
+  ОБЛОЖКА — сгенерируй по промпту ниже, сохрани как docs/cover.png, затем раскомментируй строку.
+
+  Промпт (Midjourney / DALL-E 3 / Stable Diffusion):
+  "A dark terminal window with glowing Cyrillic search results streaming across the screen,
+  Moscow skyline blurred in the background at night, deep navy blue and warm orange gradient,
+  minimalist developer tool aesthetic, no UI chrome, no text overlay, professional tech product,
+  wide cinematic banner, 2:1 aspect ratio"
+
+  <img src="docs/cover.png" alt="yandex-search" width="100%">
+-->
+
 # yandex-search
 
-Command-line interface for [Yandex Search API](https://yandex.cloud/en/services/search-api) — web search and generative AI search optimized for the Russian internet.
+**Яндекс поиск и генеративный ИИ — прямо из терминала.**
 
-Two commands: **yandex-search** (structured results with domain/date metadata) and **yandex-gen** (YandexGPT answers with cited sources).
+[![PyPI](https://img.shields.io/pypi/v/yandex-search?color=ff6a00&label=PyPI)](https://pypi.org/project/yandex-search/)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-ff6a00.svg)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-ff6a00.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/davidparker7966-design/yandex-search?style=social)](https://github.com/davidparker7966-design/yandex-search)
 
-## Install
+</div>
+
+---
+
+CLI для [Yandex Search API](https://yandex.cloud/en/services/search-api): веб-поиск со структурированными метаданными и генеративный поиск на YandexGPT с цитированием источников. Идеально для автоматизации, AI-агентов и работы с русскоязычными источниками.
+
+## Зачем yandex-search?
+
+**Русский интернет — в чистом JSON.**  
+Домены, даты публикации, сниппеты. Ничего лишнего. Готово для пайплайнов, скриптов и агентов.
+
+**Генеративный поиск с источниками.**  
+`yandex-gen` даёт не просто список ссылок — YandexGPT синтезирует ответ и цитирует каждый источник.
+
+**Гибко и без лишнего кода.**  
+Фильтр по домену (`--site`), регион, страница, тип поиска. Один флаг `--json` — и вывод идёт в `jq`, скрипт или агент.
+
+## Установка
 
 ```bash
-# Recommended: uv tool (isolated, no venv needed)
 uv tool install yandex-search
-
-# Or pip
-pip install yandex-search
 ```
 
-## Setup
-
-You need a [Yandex Cloud](https://cloud.yandex.ru) account with **Search API** enabled.
-
-1. Create a service account and API key in [Yandex Cloud Console](https://console.cloud.yandex.ru)
-2. Enable **Yandex Search API** for your folder
-3. Set credentials:
-
-**Option 1: config file (recommended)**
+Нужен аккаунт [Yandex Cloud](https://cloud.yandex.ru) с включённым Search API:
 
 ```bash
 mkdir -p ~/.search-api
-cat > ~/.search-api/config.json << 'EOF'
-{
-  "apiKey": "your-api-key",
-  "folderId": "your-folder-id"
-}
-EOF
+echo '{"apiKey": "ваш-ключ", "folderId": "ваш-folder-id"}' > ~/.search-api/config.json
 ```
 
-**Option 2: environment variables**
+## Примеры
 
 ```bash
-export YANDEX_API_KEY=your-api-key
-export YANDEX_FOLDER_ID=your-folder-id
+# Поиск по теме
+yandex-search "умный город цифровая платформа монография"
+
+# Только с конкретного сайта
+yandex-search "async python" --site habr.com
+
+# Генеративный ответ с цитированием
+yandex-gen "в чём разница между монолитом и микросервисами"
+
+# JSON для пайплайна — извлечь все URL
+yandex-search "запрос" --json | jq -r '.[].url'
+
+# Поиск в .com-индексе Яндекса
+yandex-search "machine learning" -t com -n 20
 ```
 
-## Commands
+## Полная документация
 
-### yandex-search
+→ **[docs/USAGE.md](docs/USAGE.md)** — все команды, флаги, форматы вывода и примеры скриптов.
 
-Web search with structured results — title, URL, domain, date, and text passages.
+---
 
-```bash
-# Basic search
-yandex-search "умный город цифровая платформа"
-
-# More results
-yandex-search "python async" -n 20
-
-# Restrict to a domain
-yandex-search "документация django" --site docs.djangoproject.com
-
-# Search .com index (not .ru)
-yandex-search "machine learning" -t com
-
-# JSON output for pipelines
-yandex-search "запрос" --json | jq '.[].url'
-```
-
-**Options:**
-
-| Flag | Default | Description |
-|---|---|---|
-| `-n` / `--num-results` | 10 | Number of results |
-| `-t` / `--type` | `ru` | Search index: `ru`, `com`, `tr`, `kk`, `be`, `uz` |
-| `-r` / `--region` | — | Region code (e.g. `213` for Moscow) |
-| `-p` / `--page` | 0 | Page number (0-indexed) |
-| `--site` | — | Restrict results to this domain |
-| `--json` | off | JSON array: `[{title, url, domain, date, passages}]` |
-
-### yandex-gen
-
-Generative search powered by YandexGPT — answers with cited sources.
-
-```bash
-# Ask a question
-yandex-gen "объясни трансформеры в машинном обучении"
-
-# Restrict sources to a specific site
-yandex-gen "как настроить nginx reverse proxy" --site nginx.org
-
-# JSON output
-yandex-gen "запрос" --json
-```
-
-| Flag | Default | Description |
-|---|---|---|
-| `--site` | — | Restrict sources to this domain |
-| `--json` | off | Raw JSON response from Yandex |
-
-## JSON format (yandex-search)
-
-```json
-[
-  {
-    "title": "Page title",
-    "url": "https://example.ru/page",
-    "domain": "example.ru",
-    "date": "2024-03-15",
-    "passages": ["Relevant text snippet from the page..."]
-  }
-]
-```
-
-## Piping and scripting
-
-```bash
-# Extract all URLs
-yandex-search "монографии умный город" --json | jq -r '.[].url'
-
-# Filter results by domain pattern
-yandex-search "документация" --json \
-  | jq '[.[] | select(.domain | test("gov\\.ru|edu\\.ru"))]'
-
-# Multi-page collection
-for page in 0 1 2; do
-  yandex-search "запрос" -p $page --json >> results.json
-done
-```
-
-## Requirements
-
-- Python 3.11+
-- Yandex Cloud account with Search API enabled
-- Credentials via `~/.search-api/config.json` or environment variables
+<div align="center">
+<sub>Работает на <a href="https://yandex.cloud/en/services/search-api">Yandex Search API</a> · MIT License · <a href="https://github.com/davidparker7966-design/yandex-search/issues">Сообщить о проблеме</a></sub>
+</div>
