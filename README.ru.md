@@ -10,7 +10,7 @@
 
 **CLI для [Yandex Search API](https://yandex.cloud/en/services/search-api) — веб-поиск и генеративный поиск YandexGPT из терминала.**
 
-[![PyPI](https://img.shields.io/pypi/v/yandex-search?color=ff6a00&label=PyPI)](https://pypi.org/project/yandex-search/)
+[![PyPI](https://img.shields.io/pypi/v/yandex-search-cli?color=ff6a00&label=PyPI)](https://pypi.org/project/yandex-search-cli/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-ff6a00.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-ff6a00.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/nolan-vale/yandex-search-cli?style=social)](https://github.com/nolan-vale/yandex-search)
