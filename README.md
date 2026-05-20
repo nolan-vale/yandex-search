@@ -14,7 +14,7 @@
   <img src="docs/cover.png" alt="yandex-search" width="100%">
 -->
 
-# yandex-search
+# yandex-search-cli
 
 CLI for [Yandex Search API](https://yandex.cloud/en/services/search-api) and YandexGPT — web search and generative AI search from your terminal.
 

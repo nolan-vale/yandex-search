@@ -6,7 +6,7 @@
   <img src="docs/cover.png" alt="yandex-search" width="100%">
 -->
 
-# yandex-search
+# yandex-search-cli
 
 **CLI для [Yandex Search API](https://yandex.cloud/en/services/search-api) — веб-поиск и генеративный поиск YandexGPT из терминала.**
 

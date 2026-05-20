@@ -1,4 +1,4 @@
-# yandex-search — Полная документация
+# yandex-search-cli — Полная документация
 
 ← [Назад в README](../README.md)
 
