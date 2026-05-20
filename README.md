@@ -3,7 +3,7 @@
 [![ru](https://img.shields.io/badge/lang-ru-red.svg)](README.ru.md)
 
 <!--
-  COVER IMAGE — generate with this prompt, save as docs/cover.png, then uncomment the img tag below.
+  COVER IMAGE — generate with this prompt, save as docs/cover.png, then uncomment below.
 
   Prompt (Midjourney / DALL-E 3 / Stable Diffusion XL):
   "A dark terminal window with glowing Cyrillic search results streaming across the screen,
@@ -16,7 +16,7 @@
 
 # yandex-search
 
-**CLI for [Yandex Search API](https://yandex.cloud/en/services/search-api) and YandexGPT — web search and generative AI search from your terminal.**
+CLI for [Yandex Search API](https://yandex.cloud/en/services/search-api) and YandexGPT — web search and generative AI search from your terminal.
 
 [![PyPI](https://img.shields.io/pypi/v/yandex-search?color=ff6a00&label=PyPI)](https://pypi.org/project/yandex-search/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-ff6a00.svg)](https://python.org)
@@ -27,46 +27,52 @@
 
 ---
 
-`yandex-search` wraps the [Yandex Search API](https://yandex.cloud/en/services/search-api) in two terminal commands. `yandex-search` returns structured web results — title, URL, domain, date, text snippets. `yandex-gen` uses YandexGPT to answer questions with cited sources. Both commands support `--json` for scripts and AI agents.
+## What it does
 
-## Start in 60 seconds
+`yandex-search` wraps the [Yandex Search API](https://yandex.cloud/en/services/search-api) in two terminal commands. It is the practical way to query Yandex — the dominant search engine for Russian-language content — from scripts, pipelines, and AI agent workflows.
 
-**Step 1 — Install:**
+`yandex-search` performs web search and returns structured results: title, URL, domain, publication date, and text passages. `yandex-gen` uses YandexGPT to answer a question and cite the sources it used.
+
+Both commands output clean `--json` for use in scripts and AI agents.
+
+## Who it is for
+
+- Developers building automation pipelines over Russian-language web content
+- AI agent developers who need structured search output from Yandex
+- Researchers working with Russian-language sources, `.ru` domains, or Yandex Cloud
+- Anyone using Claude Code, Codex, Cursor, or Windsurf who needs Yandex access from the terminal
+
+## Features
+
+- Web search via Yandex with domain, date, and passage metadata
+- Generative search via YandexGPT — answers with cited sources
+- Filter results by domain (`--site`)
+- Search `.ru`, `.com`, and regional Yandex indexes
+- Paginate results (`--page`)
+- Filter by region code
+- Clean `--json` output for every command
+
+## Installation
+
 ```bash
 uv tool install yandex-search
 ```
 
 > No `uv`? Run `curl -LsSf https://astral.sh/uv/install.sh | sh`, or use `pip install yandex-search`.
 
-**Step 2 — Set up Yandex Cloud:**
-1. Register at [cloud.yandex.ru](https://cloud.yandex.ru)
-2. Create a service account and API key under **IAM**
-3. Enable **Yandex Search API** for your folder ([quickstart](https://yandex.cloud/en/docs/search-api/quickstart))
-4. Copy your **API key** and **Folder ID** from the console
+## Quick start
 
-**Step 3 — Set credentials:**
+You need a [Yandex Cloud](https://cloud.yandex.ru) account with Search API enabled ([quickstart](https://yandex.cloud/en/docs/search-api/quickstart)):
+
 ```bash
 mkdir -p ~/.search-api
 echo '{"apiKey": "your-key", "folderId": "your-folder-id"}' > ~/.search-api/config.json
-```
-
-> Or via environment variables: `export YANDEX_API_KEY=... && export YANDEX_FOLDER_ID=...`
-
-**Step 4 — Search:**
-```bash
 yandex-search "smart city digital platform"
 ```
 
-## Commands
+> Or via env vars: `export YANDEX_API_KEY=... && export YANDEX_FOLDER_ID=...`
 
-| Command | What it does |
-|---|---|
-| `yandex-search <query>` | Web search: returns title, URL, domain, date, text passages. |
-| `yandex-gen <query>` | Generative search: YandexGPT writes an answer and cites each source. |
-
-Both commands support `--json` for `jq`, scripts, and AI agents.
-
-## Examples
+## Usage
 
 ```bash
 # Web search
@@ -81,17 +87,18 @@ yandex-search "machine learning" -t com -n 20
 # Generative answer with cited sources
 yandex-gen "explain the difference between monolith and microservices"
 
-# JSON — extract all URLs
-yandex-search "query" --json | jq -r '.[].url'
+# Restrict generative search to a domain
+yandex-gen "how to configure nginx" --site nginx.org
 
-# JSON — filter by domain pattern
+# JSON — extract all URLs
+yandex-search "topic" --json | jq -r '.[].url'
+
+# JSON — filter results by domain pattern
 yandex-search "regulations" --json \
   | jq '[.[] | select(.domain | test("gov\\.ru"))]'
 ```
 
-## Options reference
-
-**`yandex-search`**
+**All flags — `yandex-search`:**
 
 | Flag | Default | Description |
 |---|---|---|
@@ -102,14 +109,9 @@ yandex-search "regulations" --json \
 | `--site` | — | Restrict results to this domain |
 | `--json` | off | JSON array: `[{title, url, domain, date, passages}]` |
 
-**`yandex-gen`**
+**All flags — `yandex-gen`:** `--site`, `--json`
 
-| Flag | Default | Description |
-|---|---|---|
-| `--site` | — | Restrict sources to this domain |
-| `--json` | off | Raw JSON from Yandex |
-
-## For AI agents and scripts
+## AI agent usage
 
 `yandex-search` is stateless, read-only, and designed to be called by AI coding assistants (Claude Code, Codex, Cursor, Windsurf, etc.).
 
@@ -117,7 +119,7 @@ yandex-search "regulations" --json \
 # Search and extract URLs
 yandex-search "topic" --json | jq -r '.[].url'
 
-# Collect across multiple pages
+# Collect results across multiple pages
 for page in 0 1 2; do
   yandex-search "query" -p $page --json
 done | jq -s 'add'
@@ -126,12 +128,31 @@ done | jq -s 'add'
 yandex-gen "question" --json | jq '.message.content'
 ```
 
-See [AGENTS.md](AGENTS.md) for JSON schemas, all flags, and agent-ready patterns.
+JSON schema for `yandex-search --json`:
+```json
+[
+  {
+    "title": "Page title",
+    "url": "https://example.ru/page",
+    "domain": "example.ru",
+    "date": "2024-03-15",
+    "passages": ["Relevant text snippet..."]
+  }
+]
+```
 
-→ **[Full documentation](docs/USAGE.md)**
+See [AGENTS.md](AGENTS.md) for full schemas, exit codes, and environment reference.
+
+→ [Full documentation](docs/USAGE.md)
+
+## Project metadata
+
+- **Author:** Nolan Vale
+- **Brand:** Nolan Vale Tools
+- **Focus:** search automation, Yandex Search, AI-agent tooling, Russian web workflows, developer productivity
+- **License:** MIT
 
 ---
 
-<div align="center">
-<sub>Built on <a href="https://yandex.cloud/en/services/search-api">Yandex Search API</a> · MIT License · <a href="https://github.com/davidparker7966-design/yandex-search/issues">Report an issue</a></sub>
-</div>
+Built by [Nolan Vale](https://github.com/davidparker7966-design)  
+Part of **Nolan Vale Tools** — practical open-source utilities for search, automation, AI agents, and developer workflows.

@@ -5,11 +5,17 @@ build-backend = "hatchling.build"
 [project]
 name = "yandex-search"
 version = "0.1.0"
-description = "Command-line interface for Yandex Search API — web search and generative AI search"
+description = "AI-agent friendly CLI for Yandex Search API — web search and YandexGPT generative search from the terminal."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
-keywords = ["yandex", "search", "cli", "yandex-cloud", "russian-search"]
+authors = [
+    { name = "Nolan Vale" },
+]
+maintainers = [
+    { name = "Nolan Vale Tools" },
+]
+keywords = ["yandex", "yandex-search", "search", "search-automation", "cli", "ai-agents", "llm-tools", "developer-tools", "russian-search", "yandex-cloud", "automation"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",

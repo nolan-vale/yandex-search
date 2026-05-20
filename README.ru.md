@@ -121,6 +121,5 @@ done | jq -s 'add'
 
 ---
 
-<div align="center">
-<sub>Работает на <a href="https://yandex.cloud/en/services/search-api">Yandex Search API</a> · MIT License · <a href="https://github.com/davidparker7966-design/yandex-search/issues">Сообщить о проблеме</a></sub>
-</div>
+Built by [Nolan Vale](https://github.com/davidparker7966-design)  
+Part of **Nolan Vale Tools** — practical open-source utilities for search, automation, AI agents, and developer workflows.
