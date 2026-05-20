@@ -45,8 +45,8 @@ yandex-search "query" --json | jq -r '.[].url'
 
 ## Links
 
-- GitHub: https://github.com/nolan-vale/yandex-search
+- GitHub: https://github.com/nolan-vale/yandex-search-cli
 - PyPI: https://pypi.org/project/yandex-search/
 - Yandex Search API docs: https://yandex.cloud/en/docs/search-api/
-- Full CLI docs: https://github.com/nolan-vale/yandex-search/blob/main/docs/USAGE.md
-- For agents: https://github.com/nolan-vale/yandex-search/blob/main/AGENTS.md
+- Full CLI docs: https://github.com/nolan-vale/yandex-search-cli/blob/main/docs/USAGE.md
+- For agents: https://github.com/nolan-vale/yandex-search-cli/blob/main/AGENTS.md

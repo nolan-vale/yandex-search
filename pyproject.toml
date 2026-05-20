@@ -33,9 +33,9 @@ dependencies = ["requests>=2.28"]
 dev = ["ruff>=0.4"]
 
 [project.urls]
-Homepage = "https://github.com/nolan-vale/yandex-search"
-Repository = "https://github.com/nolan-vale/yandex-search"
-Issues = "https://github.com/nolan-vale/yandex-search/issues"
+Homepage = "https://github.com/nolan-vale/yandex-search-cli"
+Repository = "https://github.com/nolan-vale/yandex-search-cli"
+Issues = "https://github.com/nolan-vale/yandex-search-cli/issues"
 
 [project.scripts]
 yandex-search = "yandex_cli.main:search"

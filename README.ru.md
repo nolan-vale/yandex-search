@@ -13,7 +13,7 @@
 [![PyPI](https://img.shields.io/pypi/v/yandex-search?color=ff6a00&label=PyPI)](https://pypi.org/project/yandex-search/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-ff6a00.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-ff6a00.svg)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/nolan-vale/yandex-search?style=social)](https://github.com/nolan-vale/yandex-search)
+[![Stars](https://img.shields.io/github/stars/nolan-vale/yandex-search-cli?style=social)](https://github.com/nolan-vale/yandex-search)
 
 </div>
 
