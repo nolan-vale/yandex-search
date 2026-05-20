@@ -58,7 +58,7 @@ Both commands output clean `--json` for use in scripts and AI agents.
 uv tool install yandex-search
 ```
 
-> No `uv`? Run `curl -LsSf https://astral.sh/uv/install.sh | sh`, or use `pip install yandex-search`.
+> No `uv`? Run `curl -LsSf https://astral.sh/uv/install.sh | sh`, or use `pip install yandex-search-cli`.
 
 ## Quick start
 

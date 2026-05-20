@@ -28,7 +28,7 @@
 uv tool install yandex-search
 ```
 
-> Нет `uv`? Запусти `curl -LsSf https://astral.sh/uv/install.sh | sh`, или используй `pip install yandex-search`.
+> Нет `uv`? Запусти `curl -LsSf https://astral.sh/uv/install.sh | sh`, или используй `pip install yandex-search-cli`.
 
 **Шаг 2 — Настройка Yandex Cloud:**
 1. Зарегистрируйся на [cloud.yandex.ru](https://cloud.yandex.ru)
