@@ -30,9 +30,9 @@ classifiers = [
 dependencies = ["requests>=2.28"]
 
 [project.urls]
-Homepage = "https://github.com/davidparker7966-design/yandex-search"
-Repository = "https://github.com/davidparker7966-design/yandex-search"
-Issues = "https://github.com/davidparker7966-design/yandex-search/issues"
+Homepage = "https://github.com/nolan-vale/yandex-search"
+Repository = "https://github.com/nolan-vale/yandex-search"
+Issues = "https://github.com/nolan-vale/yandex-search/issues"
 
 [project.scripts]
 yandex-search = "yandex_cli.main:search"
