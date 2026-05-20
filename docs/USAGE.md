@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-uv tool install yandex-search   # рекомендуется
+uv tool install yandex-search-cli   # рекомендуется
 pip install yandex-search-cli       # или pip
 ```
 
